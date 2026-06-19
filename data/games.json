@@ -1,0 +1,47 @@
+[
+  {
+    "name": "Craig of the Hills",
+    "badge": "PowerPoint Game",
+    "date": "September 18, 2023",
+    "info": "Craig of the Hills is made entirely in PowerPoint. We believe it is the longest PowerPoint game ever made. No VBA code either. Yes, lots of AI! Sorry we are not artists (yet)!",
+    "tools": "Microsoft PowerPoint",
+    "youtube": "",
+    "gallery": [
+      "images/game-projects/craig-of-the-hills/craig-of-the-hills_01.png",
+      "images/game-projects/craig-of-the-hills/craig-of-the-hills_02.png"
+    ]
+  },
+  {
+    "name": "The Secret of Craig Hill",
+    "badge": "Prototype",
+    "date": "January 8, 2025",
+    "info": "A horror game we worked on in Unreal Engine 5 featuring our video production teacher. We handled all the programming, audio, and level design for this project.",
+    "tools": "Unreal Engine 5, Blueprints",
+    "youtube": "",
+    "gallery": [
+      "images/game-projects/secret/secret_01.webp",
+      "images/game-projects/secret/secret_02.webp"
+    ]
+  },
+  {
+    "name": "House of Horrors",
+    "badge": "Prototype",
+    "date": "February 2, 2025",
+    "info": "A retro-styled horror game we worked on, but it ended up being used for a different project. This game is what the video titled \"House of Horrors\" was based on. We imported the footage into the Unreal Engine project and went from there.",
+    "tools": "Unreal Engine 5, Blueprints",
+    "youtube": "",
+    "gallery": [
+      "images/game-projects/horrors-game/horrors-game_01.webp",
+      "images/game-projects/horrors-game/horrors-game_02.webp",
+      "images/game-projects/horrors-game/horrors-game_03.webp",
+      "images/game-projects/horrors-game/horrors-game_04.webp",
+      "images/game-projects/horrors-game/horrors-game_05.webp",
+      "images/game-projects/horrors-game/horrors-game_06.webp",
+      "images/game-projects/horrors-game/horrors-game_07.webp",
+      "images/game-projects/horrors-game/horrors-game_08.webp",
+      "images/game-projects/horrors-game/horrors-game_09.webp",
+      "images/game-projects/horrors-game/horrors-game_10.webp",
+      "images/game-projects/horrors-game/horrors-game_11.webp"
+    ]
+  }
+]

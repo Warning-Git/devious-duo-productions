@@ -249,4 +249,120 @@ class Utils {
         body.classList.remove('scroll-lock');
         html.classList.remove('scroll-lock');
     }
+
+    static initOverlayScrollbar() {
+        const html = document.documentElement;
+        const body = document.body;
+        if (!html || !body) return;
+
+        const track = document.createElement('div');
+        track.className = 'page-overlay-scrollbar';
+        track.setAttribute('aria-hidden', 'true');
+
+        const thumb = document.createElement('div');
+        thumb.className = 'page-overlay-scrollbar__thumb';
+        track.appendChild(thumb);
+        body.appendChild(track);
+
+        let rafPending = false;
+        let dragging = false;
+        let dragStartY = 0;
+        let dragStartScroll = 0;
+
+        const getScrollTop = () => window.scrollY || html.scrollTop || body.scrollTop || 0;
+
+        const setScrollTop = (value) => {
+            window.scrollTo(0, value);
+        };
+
+        const getMetrics = () => {
+            const scrollHeight = Math.max(html.scrollHeight, body.scrollHeight);
+            const clientHeight = html.clientHeight;
+            const scrollTop = getScrollTop();
+            const maxScroll = Math.max(0, scrollHeight - clientHeight);
+            const thumbHeight = maxScroll > 0
+                ? Math.max(40, (clientHeight / scrollHeight) * clientHeight)
+                : 0;
+            const maxThumbTop = Math.max(0, clientHeight - thumbHeight);
+            const thumbTop = maxScroll > 0 ? (scrollTop / maxScroll) * maxThumbTop : 0;
+            return { scrollHeight, clientHeight, maxScroll, thumbHeight, thumbTop };
+        };
+
+        const update = () => {
+            if (html.classList.contains('scroll-lock') || body.classList.contains('scroll-lock')) {
+                track.classList.remove('is-visible');
+                track.style.display = 'none';
+                return;
+            }
+
+            const { scrollHeight, clientHeight, maxScroll, thumbHeight, thumbTop } = getMetrics();
+            const isScrollable = maxScroll > 1;
+
+            track.style.display = isScrollable ? 'block' : 'none';
+            track.classList.toggle('is-visible', isScrollable);
+            if (!isScrollable) return;
+
+            thumb.style.height = `${thumbHeight}px`;
+            thumb.style.transform = `translateY(${thumbTop}px)`;
+        };
+
+        const scheduleUpdate = () => {
+            if (rafPending) return;
+            rafPending = true;
+            requestAnimationFrame(() => {
+                rafPending = false;
+                update();
+            });
+        };
+
+        const stopDrag = () => {
+            dragging = false;
+            document.removeEventListener('mousemove', onDrag);
+            document.removeEventListener('mouseup', stopDrag);
+        };
+
+        const onDrag = (event) => {
+            if (!dragging) return;
+            const { maxScroll, thumbHeight, clientHeight } = getMetrics();
+            const maxThumbTop = Math.max(1, clientHeight - thumbHeight);
+            const deltaY = event.clientY - dragStartY;
+            const scrollDelta = (deltaY / maxThumbTop) * maxScroll;
+            setScrollTop(dragStartScroll + scrollDelta);
+        };
+
+        thumb.addEventListener('mousedown', (event) => {
+            event.preventDefault();
+            dragging = true;
+            dragStartY = event.clientY;
+            dragStartScroll = getScrollTop();
+            document.addEventListener('mousemove', onDrag);
+            document.addEventListener('mouseup', stopDrag);
+        });
+
+        track.addEventListener('mousedown', (event) => {
+            if (event.target !== track) return;
+            const { maxScroll, thumbHeight, clientHeight } = getMetrics();
+            if (maxScroll <= 0) return;
+            const maxThumbTop = Math.max(1, clientHeight - thumbHeight);
+            const clickRatio = Math.min(1, Math.max(0, (event.clientY - thumbHeight / 2) / maxThumbTop));
+            setScrollTop(clickRatio * maxScroll);
+        });
+
+        window.addEventListener('scroll', scheduleUpdate, { passive: true });
+        window.addEventListener('resize', scheduleUpdate);
+
+        if (typeof ResizeObserver === 'function') {
+            const resizeObserver = new ResizeObserver(scheduleUpdate);
+            resizeObserver.observe(html);
+            resizeObserver.observe(body);
+            const pageRoot = document.getElementById('page-root');
+            if (pageRoot) resizeObserver.observe(pageRoot);
+        }
+
+        const lockObserver = new MutationObserver(scheduleUpdate);
+        lockObserver.observe(html, { attributes: true, attributeFilter: ['class'] });
+        lockObserver.observe(body, { attributes: true, attributeFilter: ['class'] });
+
+        scheduleUpdate();
+    }
 }

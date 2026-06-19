@@ -4,10 +4,11 @@
   "description": "Benjamin Reynolds Portfolio Website",
   "scripts": {
     "minify:js": "terser js/utils.js js/data.js js/modal.js js/controls.js js/renderer.js js/filter.js js/search.js js/main.js -o js/bundle.min.js -c -m",
+    "validate:data": "node -e \"const fs=require('fs');const path=require('path');['videos','games','skills','activities','achievements','school'].forEach((name)=>{const file=path.join('data',name+'.json');JSON.parse(fs.readFileSync(file,'utf8'));});console.log('✓ data/*.json valid');\"",
     "minify:css": "cleancss -o css/combined.min.css css/combined.css",
     "minify": "npm run minify:js && npm run minify:css",
     "build": "npm run minify",
-    "prebuild": "node -e \"console.log('Building optimized production files...')\"",
+    "prebuild": "npm run validate:data && node -e \"console.log('Building optimized production files...')\"",
     "postbuild": "node -e \"const fs=require('fs');const js=fs.statSync('js/bundle.min.js').size;const css=fs.statSync('css/combined.min.css').size;console.log(`✓ JS: ${(js/1024).toFixed(2)} KB | CSS: ${(css/1024).toFixed(2)} KB`)\""
   },
   "devDependencies": {

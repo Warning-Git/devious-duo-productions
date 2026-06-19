@@ -21,6 +21,8 @@ window.handlePortraitImageError = (img) => {
 };
 
 document.addEventListener('DOMContentLoaded', async () => {
+    Utils.initOverlayScrollbar();
+
     let initialRouteHydrated = false;
     let portfolioGridResizeObserver = null;
     const routes = {
@@ -165,6 +167,7 @@ document.addEventListener('DOMContentLoaded', async () => {
     applyRedirectPath();
     const appRoot = resolveAppRoot(window.location.pathname);
     state.appRoot = appRoot;
+    dataService.setAppRoot(appRoot);
 
     const stripAppRoot = (pathname) => {
         if (appRoot && pathname.startsWith(appRoot)) {

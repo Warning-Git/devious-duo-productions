@@ -13,12 +13,53 @@
 }
 
 html {
-    overflow-y: scroll;
-    scrollbar-gutter: stable;
-    scrollbar-width: thin;
-    scrollbar-color: #30363d transparent;
+    overflow-y: auto;
+    scrollbar-gutter: auto;
+    scrollbar-width: none;
+    -ms-overflow-style: none;
     background: #000000;
     position: relative;
+}
+
+html.scroll-lock .page-overlay-scrollbar {
+    display: none;
+}
+
+html::-webkit-scrollbar {
+    width: 0;
+    height: 0;
+}
+
+.page-overlay-scrollbar {
+    position: fixed;
+    top: 0;
+    right: 0;
+    width: 10px;
+    height: 100%;
+    z-index: 100;
+    pointer-events: none;
+}
+
+.page-overlay-scrollbar.is-visible {
+    pointer-events: auto;
+}
+
+.page-overlay-scrollbar__thumb {
+    position: absolute;
+    top: 0;
+    right: 0;
+    width: 10px;
+    min-height: 40px;
+    background-color: #30363d;
+    border-radius: 10px;
+    border: 2px solid #000000;
+    box-sizing: border-box;
+    cursor: default;
+    pointer-events: auto;
+}
+
+.page-overlay-scrollbar__thumb:hover {
+    background-color: #484f58;
 }
 
 html::before {
@@ -34,24 +75,6 @@ html::before {
 html.scroll-lock,
 body.scroll-lock {
     overflow: hidden !important;
-}
-
-html::-webkit-scrollbar {
-    width: 10px;
-}
-
-html::-webkit-scrollbar-track {
-    background: transparent;
-}
-
-html::-webkit-scrollbar-thumb {
-    background-color: #30363d;
-    border-radius: 10px;
-    border: 2px solid #000000;
-}
-
-html::-webkit-scrollbar-thumb:hover {
-    background-color: #484f58;
 }
 
 body {

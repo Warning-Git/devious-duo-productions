@@ -1,0 +1,56 @@
+[
+  {
+    "name": "Adobe Premiere Pro",
+    "badge": "Editing",
+    "info": "Video editing software we use to cut and edit our videos.",
+    "icon": "images/skills/icon-pr.webp"
+  },
+  {
+    "name": "FL Studio",
+    "badge": "Audio",
+    "info": "We use this from time to time to create music or sound design for our projects.",
+    "icon": "images/skills/icon-fl-studio.webp"
+  },
+  {
+    "name": "Adobe After Effects",
+    "badge": "VFX and Motion",
+    "info": "VFX software we use for rotoscoping and advanced effects in our videos.",
+    "icon": "images/skills/icon-ae.webp"
+  },
+  {
+    "name": "Adobe Photoshop",
+    "badge": "Design",
+    "info": "Image editing software we occasionally use for our projects.",
+    "icon": "images/skills/icon-ps.webp"
+  },
+  {
+    "name": "Adobe Illustrator",
+    "badge": "Design",
+    "info": "We honestly don't use this program that much.",
+    "icon": "images/skills/icon-ai.webp"
+  },
+  {
+    "name": "Microsoft PowerPoint",
+    "badge": "Game Development",
+    "info": "We have a lot of experience with PowerPoint and made some pretty cool projects using it.",
+    "icon": "images/skills/icon-powerpoint.webp"
+  },
+  {
+    "name": "Unreal Engine 5",
+    "badge": "Game Development",
+    "info": "Our primary game engine as of right now.",
+    "icon": "images/skills/icon-ue5.webp"
+  },
+  {
+    "name": "Blueprints",
+    "badge": "Game Development",
+    "info": "Visual scripting system in Unreal Engine 5 used for gameplay logic.",
+    "icon": "images/skills/icon-ue5.webp"
+  },
+  {
+    "name": "Unity",
+    "badge": "Game Development",
+    "info": "Currently learning...",
+    "icon": "images/skills/icon-unity.webp"
+  }
+]
